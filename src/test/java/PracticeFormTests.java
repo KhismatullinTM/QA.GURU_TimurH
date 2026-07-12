@@ -1,5 +1,3 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -7,45 +5,24 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class PracticeFormTests {
-
-    String userName = "Timur";
-    String userLastName = "T";
-    String email = "avito9196@yandex.ru";
-    String phoneNumber = "9657895436";
-    String invalidPhoneNumber = "965789543";
-    String subjects = "Computer Science";
-    String hobby = "Sports";
-    String currentAddress = "1 Kremlevskaya Embankment, Moscow, Russian Federation";
-    String userState = "Rajasthan";
-    String userCity = "Jaipur";
-
-    @BeforeEach
-    void setUp (){
-        open("https://demoqa.com/automation-practice-form");
-    }
-
-    @AfterEach
-    void tearDown (){
-        closeWebDriver();
-    }
+public class PracticeFormTests extends TestBase {
 
     @Test
     void validTest(){
 
+        open("/automation-practice-form");
         $("[id=firstName]").setValue(userName);
         $("[id=lastName]").setValue(userLastName);
         $("[id=userEmail]").setValue(email);
-        $("[id=gender-radio-1][value=Male]").click();
+        $("[id='genterWrapper']").$(byText(gender)).click();
         $("[id=userNumber]").setValue(phoneNumber);
         $("[id=dateOfBirthInput]").click();
         $("[class=react-datepicker__year-select]").selectOption("2000");
         $("[class=react-datepicker__month-select]").selectOption("January");
         $(".react-datepicker__day.react-datepicker__day--001").click();
         $("[id=subjectsContainer]").click();
-        $("[id=subjectsInput]").setValue(subjects);
-        $(byText(subjects)).click();
-        $(byText(hobby)).click();
+        $("[id=subjectsInput]").setValue(subjects).pressEnter();
+        $("[id='hobbiesWrapper']").$(byText(hobby)).click();
         $("[id=uploadPicture]").uploadFromClasspath("Dubai.jpg");
         $("[id=currentAddress]").scrollTo().setValue(currentAddress);
         $("#react-select-3-input").setValue(userState).pressEnter();
@@ -56,7 +33,7 @@ public class PracticeFormTests {
         // Проверки
         $("[class=table-responsive]").$(byText("Student Name")).parent().shouldHave(text(userName), text(userLastName));
         $("[class=table-responsive]").$(byText("Student Email")).parent().shouldHave(text(email));
-        $("[class=table-responsive]").$(byText("Gender")).parent().shouldHave(text("Male"));
+        $("[class=table-responsive]").$(byText("Gender")).parent().shouldHave(text(gender));
         $("[class=table-responsive]").$(byText("Mobile")).parent().shouldHave(text(phoneNumber));
         $("[class=table-responsive]").$(byText("Date of Birth")).parent().shouldHave(text("1 January,2000"));
         $("[class=table-responsive]").$(byText("Subjects")).parent().shouldHave(text(subjects));
@@ -68,30 +45,36 @@ public class PracticeFormTests {
     }
 
     @Test
-    void TestWithRequiredFields (){
+    void testWithRequiredFields (){
+        open("/automation-practice-form");
         $("[id=firstName]").setValue(userName);
         $("[id=lastName]").setValue(userLastName);
         $("[id=userEmail]").setValue(email);
-        $("[id=gender-radio-1][value=Male]").click();
+        $("[id='genterWrapper']").$(byText(gender)).click();
         $("[id=userNumber]").setValue(phoneNumber);
         $("[id=submit]").scrollTo().click(); // У меня небольшая диагональ экрана. Хотя Станислав говорил, что это стрем, но пока что я альтернатив не изучил)
         $("[id=example-modal-sizes-title-lg]").shouldBe(visible);
+
+        $("[class=table-responsive]").$(byText("Student Name")).parent().shouldHave(text(userName), text(userLastName));
+        $("[class=table-responsive]").$(byText("Student Email")).parent().shouldHave(text(email));
+        $("[class=table-responsive]").$(byText("Gender")).parent().shouldHave(text(gender));
+        $("[class=table-responsive]").$(byText("Mobile")).parent().shouldHave(text(phoneNumber));
     }
 
     @Test
-    void TestWithoutPhoneNumber () {
-        open("https://demoqa.com/automation-practice-form");
+    void testWithoutPhoneNumber () {
+        open("/automation-practice-form");
         $("[id=firstName]").setValue(userName);
         $("[id=lastName]").setValue(userLastName);
         $("[id=userEmail]").setValue(email);
-        $("[id=gender-radio-1][value=Male]").click();
+        $("[id='genterWrapper']").$(byText(gender)).click();
         $("[id=submit]").scrollTo().click();
         $("[id=example-modal-sizes-title-lg]").shouldNotBe(visible);
     }
 
     @Test
-    void TestWithoutGender () {
-        open("https://demoqa.com/automation-practice-form");
+    void testWithoutGender () {
+        open("/automation-practice-form");
         $("[id=firstName]").setValue(userName);
         $("[id=lastName]").setValue(userLastName);
         $("[id=userEmail]").setValue(email);
@@ -101,13 +84,14 @@ public class PracticeFormTests {
     }
 
     @Test
-    void TestWithInvalidPhone (){
+    void testWithInvalidPhone (){
+        open("/automation-practice-form");
         $("[id=firstName]").setValue(userName);
         $("[id=lastName]").setValue(userLastName);
         $("[id=userEmail]").setValue(email);
-        $("[id=gender-radio-1][value=Male]").click();
+        $("[id='genterWrapper']").$(byText(gender)).click();
         $("[id=userNumber]").setValue(invalidPhoneNumber);
-        $("[id=submit]").scrollTo().click(); // У меня небольшая диагональ экрана. Хотя Станислав говорил, что это стрем, но пока что я альтернатив не изучил)
+        $("[id=submit]").scrollTo().click();
         $("[id=example-modal-sizes-title-lg]").shouldNotBe(visible);
     }
 
