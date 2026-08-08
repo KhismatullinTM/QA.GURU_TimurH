@@ -3,11 +3,8 @@ package pages;
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
 import pages.components.ResultTableComponent;
-
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 
 public class PracticeFormPage {
@@ -103,12 +100,17 @@ public class PracticeFormPage {
     }
 
     public PracticeFormPage submitButtonClick (){
-        submitButton.click();
+        submitButton.scrollTo().click();
         return this;
     }
 
     public PracticeFormPage checkModalTitleSubmittedForm (){
         modalTitleSubmittedForm.shouldBe(visible);
+        return this;
+    }
+
+    public PracticeFormPage checkModalTitleNotVisible (){
+        modalTitleSubmittedForm.shouldNotBe(visible);
         return this;
     }
 

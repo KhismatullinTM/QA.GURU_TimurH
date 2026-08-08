@@ -2,7 +2,6 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import pages.components.ResultComponent;
-
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -43,6 +42,11 @@ public class TextBoxPage {
 
     public TextBoxPage checkResultOutputVisible (){
         resultOutput.shouldBe(visible);
+        return this;
+    }
+
+    public TextBoxPage checkResultOutputNotVisible (){
+        resultOutput.shouldNotBe(visible);
         return this;
     }
 

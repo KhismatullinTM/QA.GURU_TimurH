@@ -1,60 +1,59 @@
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static testsData.TestData.*;
 
 public class TextBoxTests extends TestBase {
 
-    @Test
-    @DisplayName("Успешное заполнение формы Text Box")
-    void shouldSuccessfullySubmitTextBoxForm(){
+    static Stream<Arguments> shouldSuccessfullySubmitTextBoxFormWithAnyUsers() {
+        return Stream.of(
+                Arguments.of(FULL_USER_NAME, EMAIL, CURRENT_ADDRESS),
+                Arguments.of(SECOND_FULL_USER_NAME, SECOND_EMAIL, SECOND_CURRENT_ADDRESS)
+        );
+    }
+    @ParameterizedTest(name = "Заполнение страницы text-box польователем {0}, его email {1} и город {2}")
+    @MethodSource
+    void shouldSuccessfullySubmitTextBoxFormWithAnyUsers(String userName, String email, String currentAddress){
         textBoxPage.
                 openTextBoxForm().
-                setUserName(FULL_USER_NAME).
-                setUserEmail(EMAIL).
-                setUserCurrentAddress(CURRENT_ADDRESS).
+                setUserName(userName).
+                setUserEmail(email).
+                setUserCurrentAddress(currentAddress).
                 submitButtonClick().
                 checkResultOutputVisible();
 
         textBoxPage.
-                checkResultOutputField("name",FULL_USER_NAME).
-                checkResultOutputField("email",EMAIL).
-                checkResultOutputField("currentAddress",CURRENT_ADDRESS);
+                checkResultOutputField("name",userName).
+                checkResultOutputField("email",email).
+                checkResultOutputField("currentAddress",currentAddress);
+    }
+
+    @Test
+    void shouldSubmitFormWithOnlyRequiredFields(){
+        textBoxPage.
+                openTextBoxForm().
+                setUserName(USER_FIRST_NAME).
+                submitButtonClick();
+
+        textBoxPage.
+                checkResultOutputVisible().
+                checkResultOutputField("name", USER_FIRST_NAME);
+    }
+
+    @Test
+    void shouldNotSubmitFormWithInvalidEmail(){
+        textBoxPage.
+                openTextBoxForm().
+                setUserName(USER_FIRST_NAME).
+                setUserEmail(INVALID_SECOND_EMAIL).
+                setUserCurrentAddress(CURRENT_ADDRESS).
+                submitButtonClick();
+
+        textBoxPage.
+                checkResultOutputNotVisible();
     }
 }
-/*
-    }
-
-    @Test
-    void secondUserPositiveTest(){
-        open("/text-box");
-        $("#userName").setValue(secondFullUserName);
-        $("#userEmail").setValue(secondEmail);
-        $("textarea#currentAddress").setValue(secondCurrentAddress);
-        $("#submit").click();
-        $("#name").shouldHave(text(secondFullUserName));
-        $("#email").shouldHave(text(secondEmail));
-        $("p#currentAddress").shouldHave(text(secondCurrentAddress));
-    }
-
-    @Test
-    void minimalFieldsPositiveTest(){
-        open("/text-box");
-        $("#userName").setValue(fullUserName);
-        $("#submit").click();
-        $("#name").shouldHave(text(fullUserName));
-    }
-
-    @Test
-    void secondUserNegativeTest(){
-        open("/text-box");
-        $("#userName").setValue(secondFullUserName);
-        $("#userEmail").setValue(invalidSecondEmail);
-        $("textarea#currentAddress").setValue(secondCurrentAddress);
-        $("#submit").click();
-        $("#name").shouldNotBe(visible);
-        $("#email").shouldNotBe(visible);
-        $("p#currentAddress").shouldNotBe(visible);
-    }
-}
-*/

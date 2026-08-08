@@ -24,7 +24,7 @@ public class PracticeFormTests extends TestBase {
                 setStateAndCity(USER_STATE, USER_CITY).
                 submitButtonClick().
                 checkModalTitleSubmittedForm();
-                // Assert
+                // Asserts
         practiceFormPage.
                 checkTableRowByName("Student Name", FULL_USER_NAME).
                 checkTableRowByName("Student Email", EMAIL).
@@ -37,59 +37,66 @@ public class PracticeFormTests extends TestBase {
                 checkTableRowByName("Address", CURRENT_ADDRESS).
                 checkTableRowByName("State and City", USER_STATE + " " + USER_CITY);
     }
-}
-/*
-    }
 
     @Test
     void testWithRequiredFields (){
-        open("/automation-practice-form");
-        $("[#firstName]").setValue(USER_NAME);
-        $("[id=lastName]").setValue(userLastName);
-        $("[id=userEmail]").setValue(email);
-        $("[id='genterWrapper']").$(byText(gender)).click();
-        $("[id=userNumber]").setValue(phoneNumber);
-        $("[id=submit]").scrollTo().click(); // У меня небольшая диагональ экрана. Хотя Станислав говорил, что это стрем, но пока что я альтернатив не изучил)
-        $("[id=example-modal-sizes-title-lg]").shouldBe(visible);
+        practiceFormPage.
+                openPracticeForm().
+                setFirstName(USER_FIRST_NAME).
+                setLastName(USER_LAST_NAME).
+                setUserEmail(EMAIL).
+                selectGender(GENDER).
+                setUserNumber(PHONE_NUMBER).
+                submitButtonClick().
+                checkModalTitleSubmittedForm();
 
-        $("[class=table-responsive]").$(byText("Student Name")).parent().shouldHave(text(userName), text(userLastName));
-        $("[class=table-responsive]").$(byText("Student Email")).parent().shouldHave(text(email));
-        $("[class=table-responsive]").$(byText("Gender")).parent().shouldHave(text(gender));
-        $("[class=table-responsive]").$(byText("Mobile")).parent().shouldHave(text(phoneNumber));
+        practiceFormPage.
+                checkTableRowByName("Student Name", FULL_USER_NAME).
+                checkTableRowByName("Student Email", EMAIL).
+                checkTableRowByName("Gender", GENDER).
+                checkTableRowByName("Mobile", PHONE_NUMBER);
     }
 
     @Test
     void testWithoutPhoneNumber () {
-        open("/automation-practice-form");
-        $("[id=firstName]").setValue(userName);
-        $("[id=lastName]").setValue(userLastName);
-        $("[id=userEmail]").setValue(email);
-        $("[id='genterWrapper']").$(byText(gender)).click();
-        $("[id=submit]").scrollTo().click();
-        $("[id=example-modal-sizes-title-lg]").shouldNotBe(visible);
+        practiceFormPage.
+                openPracticeForm().
+                setFirstName(USER_FIRST_NAME).
+                setLastName(USER_LAST_NAME).
+                setUserEmail(EMAIL).
+                selectGender(GENDER).
+                submitButtonClick();
+
+        practiceFormPage.
+                    checkModalTitleNotVisible();
     }
 
     @Test
     void testWithoutGender () {
-        open("/automation-practice-form");
-        $("[id=firstName]").setValue(userName);
-        $("[id=lastName]").setValue(userLastName);
-        $("[id=userEmail]").setValue(email);
-        $("[id=userNumber]").setValue(phoneNumber);
-        $("[id=submit]").scrollTo().click();
-        $("[id=example-modal-sizes-title-lg]").shouldNotBe(visible);
+        practiceFormPage.
+                openPracticeForm().
+                setFirstName(USER_FIRST_NAME).
+                setLastName(USER_LAST_NAME).
+                setUserEmail(EMAIL).
+                setUserNumber(PHONE_NUMBER).
+                submitButtonClick();
+
+        practiceFormPage.
+                checkModalTitleNotVisible();
     }
 
     @Test
     void testWithInvalidPhone (){
-        open("/automation-practice-form");
-        $("[id=firstName]").setValue(userName);
-        $("[id=lastName]").setValue(userLastName);
-        $("[id=userEmail]").setValue(email);
-        $("[id='genterWrapper']").$(byText(gender)).click();
-        $("[id=userNumber]").setValue(invalidPhoneNumber);
-        $("[id=submit]").scrollTo().click();
-        $("[id=example-modal-sizes-title-lg]").shouldNotBe(visible);
-    }
+        practiceFormPage.
+                openPracticeForm().
+                setFirstName(USER_FIRST_NAME).
+                setLastName(USER_LAST_NAME).
+                setUserEmail(EMAIL).
+                selectGender(GENDER).
+                setUserNumber(INVALID_PHONE_NUMBER).
+                submitButtonClick();
 
-}*/
+        practiceFormPage.
+                checkModalTitleNotVisible();
+    }
+}
