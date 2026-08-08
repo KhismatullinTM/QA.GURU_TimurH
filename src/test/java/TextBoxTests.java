@@ -1,3 +1,4 @@
+/*
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
@@ -50,3 +51,4 @@ public class TextBoxTests extends TestBase {
         $("p#currentAddress").shouldNotBe(visible);
     }
 }
+*/

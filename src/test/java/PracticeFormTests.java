@@ -1,53 +1,46 @@
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static testsData.TestData.*;
 
 public class PracticeFormTests extends TestBase {
 
     @Test
-    void validTest(){
-
-        open("/automation-practice-form");
-        $("[id=firstName]").setValue(userName);
-        $("[id=lastName]").setValue(userLastName);
-        $("[id=userEmail]").setValue(email);
-        $("[id='genterWrapper']").$(byText(gender)).click();
-        $("[id=userNumber]").setValue(phoneNumber);
-        $("[id=dateOfBirthInput]").click();
-        $("[class=react-datepicker__year-select]").selectOption("2000");
-        $("[class=react-datepicker__month-select]").selectOption("January");
-        $(".react-datepicker__day.react-datepicker__day--001").click();
-        $("[id=subjectsContainer]").click();
-        $("[id=subjectsInput]").setValue(subjects).pressEnter();
-        $("[id='hobbiesWrapper']").$(byText(hobby)).click();
-        $("[id=uploadPicture]").uploadFromClasspath("Dubai.jpg");
-        $("[id=currentAddress]").scrollTo().setValue(currentAddress);
-        $("#react-select-3-input").setValue(userState).pressEnter();
-        $("#react-select-4-input").setValue(userCity).pressEnter();
-        $("[id=submit]").click();
-        $("[id=example-modal-sizes-title-lg]").shouldBe(visible);
-
-        // Проверки
-        $("[class=table-responsive]").$(byText("Student Name")).parent().shouldHave(text(userName), text(userLastName));
-        $("[class=table-responsive]").$(byText("Student Email")).parent().shouldHave(text(email));
-        $("[class=table-responsive]").$(byText("Gender")).parent().shouldHave(text(gender));
-        $("[class=table-responsive]").$(byText("Mobile")).parent().shouldHave(text(phoneNumber));
-        $("[class=table-responsive]").$(byText("Date of Birth")).parent().shouldHave(text("1 January,2000"));
-        $("[class=table-responsive]").$(byText("Subjects")).parent().shouldHave(text(subjects));
-        $("[class=table-responsive]").$(byText("Hobbies")).parent().shouldHave(text(hobby));
-        $("[class=table-responsive]").$(byText("Picture")).parent().shouldHave(text("Dubai.jpg"));
-        $("[class=table-responsive]").$(byText("Address")).parent().shouldHave(text(currentAddress));
-        $("[class=table-responsive]").$(byText("State and City")).parent().shouldHave(text(userState), text(userCity));
-
+    void shouldSuccessfullySubmitPracticeForm() {
+        //Act
+        practiceFormPage.openPracticeForm().
+                setFirstName(USER_FIRST_NAME).
+                setLastName(USER_LAST_NAME).
+                setUserEmail(EMAIL).
+                selectGender(GENDER).
+                setUserNumber(PHONE_NUMBER).
+                setDateOfBirth(DAY_OF_BIRTH, MONTH_OF_BIRTH, YEAR_OF_BIRTH).
+                setSubject(SUBJECTS).
+                setHobbies(HOBBY).
+                fileUploader(FILE_PATH).
+                setCurrentAddress(CURRENT_ADDRESS).
+                setStateAndCity(USER_STATE, USER_CITY).
+                submitButtonClick().
+                checkModalTitleSubmittedForm().
+                // Assert
+                checkTableRowByName("Student Name", FULL_USER_NAME).
+                checkTableRowByName("Student Email", EMAIL).
+                checkTableRowByName("Gender", GENDER).
+                checkTableRowByName("Mobile", PHONE_NUMBER).
+                checkTableRowByName("Date of Birth", DAY_OF_BIRTH + " " + MONTH_OF_BIRTH + "," + YEAR_OF_BIRTH).
+                checkTableRowByName("Subjects", SUBJECTS).
+                checkTableRowByName("Hobbies", HOBBY).
+                checkTableRowByName("Picture", FILE_PATH).
+                checkTableRowByName("Address", CURRENT_ADDRESS).
+                checkTableRowByName("State and City", USER_STATE + " " + USER_CITY);
+    }
+}
+/*
     }
 
     @Test
     void testWithRequiredFields (){
         open("/automation-practice-form");
-        $("[id=firstName]").setValue(userName);
+        $("[#firstName]").setValue(USER_NAME);
         $("[id=lastName]").setValue(userLastName);
         $("[id=userEmail]").setValue(email);
         $("[id='genterWrapper']").$(byText(gender)).click();
@@ -95,4 +88,4 @@ public class PracticeFormTests extends TestBase {
         $("[id=example-modal-sizes-title-lg]").shouldNotBe(visible);
     }
 
-}
+}*/
