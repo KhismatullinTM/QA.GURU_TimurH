@@ -1,22 +1,28 @@
-/*
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Condition.visible;
-import static com.codeborne.selenide.Selenide.*;
+import static testsData.TestData.*;
 
 public class TextBoxTests extends TestBase {
 
     @Test
-    void firstUserPositiveTest(){
-        open("/text-box");
-        $("#userName").setValue(fullUserName);
-        $("#userEmail").setValue(email);
-        $("textarea#currentAddress").setValue(currentAddress);
-        $("#submit").click();
-        $("#name").shouldHave(text(fullUserName));
-        $("#email").shouldHave(text(email));
-        $("p#currentAddress").shouldHave(text(currentAddress));
+    @DisplayName("Успешное заполнение формы Text Box")
+    void shouldSuccessfullySubmitTextBoxForm(){
+        textBoxPage.
+                openTextBoxForm().
+                setUserName(FULL_USER_NAME).
+                setUserEmail(EMAIL).
+                setUserCurrentAddress(CURRENT_ADDRESS).
+                submitButtonClick().
+                checkResultOutputVisible();
+
+        textBoxPage.
+                checkResultOutputField("name",FULL_USER_NAME).
+                checkResultOutputField("email",EMAIL).
+                checkResultOutputField("currentAddress",CURRENT_ADDRESS);
+    }
+}
+/*
     }
 
     @Test

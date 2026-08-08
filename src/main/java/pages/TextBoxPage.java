@@ -1,4 +1,54 @@
 package pages;
 
+import com.codeborne.selenide.SelenideElement;
+import pages.components.ResultComponent;
+
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+
 public class TextBoxPage {
+
+    SelenideElement userNameInput = $("#userName");
+    SelenideElement userEmailInput = $("#userEmail");
+    SelenideElement currentAddressTextArea = $("#currentAddress-wrapper textarea");
+    SelenideElement submitButton = $("#submit");
+    SelenideElement resultOutput = $("#output");
+
+
+    public TextBoxPage openTextBoxForm (){
+        open("/text-box");
+        return this;
+    }
+
+    public TextBoxPage setUserName (String userName){
+        userNameInput.setValue(userName);
+        return this;
+    }
+
+    public TextBoxPage setUserEmail (String userEmail){
+        userEmailInput.setValue(userEmail);
+        return this;
+    }
+
+    public TextBoxPage setUserCurrentAddress (String currentAddress){
+        currentAddressTextArea.setValue(currentAddress);
+        return this;
+    }
+
+    public TextBoxPage submitButtonClick (){
+        submitButton.click();
+        return this;
+    }
+
+    public TextBoxPage checkResultOutputVisible (){
+        resultOutput.shouldBe(visible);
+        return this;
+    }
+
+    public TextBoxPage checkResultOutputField (String fieldId, String resultValue){
+        ResultComponent resultComponent = new ResultComponent();
+        resultComponent.checkField(fieldId, resultValue);
+        return this;
+    }
 }

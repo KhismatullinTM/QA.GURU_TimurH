@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static testsData.TestData.*;
@@ -5,9 +6,11 @@ import static testsData.TestData.*;
 public class PracticeFormTests extends TestBase {
 
     @Test
+    @DisplayName("Успешное заполнение формы Регистрации студента")
     void shouldSuccessfullySubmitPracticeForm() {
         //Act
-        practiceFormPage.openPracticeForm().
+        practiceFormPage.
+                openPracticeForm().
                 setFirstName(USER_FIRST_NAME).
                 setLastName(USER_LAST_NAME).
                 setUserEmail(EMAIL).
@@ -20,8 +23,9 @@ public class PracticeFormTests extends TestBase {
                 setCurrentAddress(CURRENT_ADDRESS).
                 setStateAndCity(USER_STATE, USER_CITY).
                 submitButtonClick().
-                checkModalTitleSubmittedForm().
+                checkModalTitleSubmittedForm();
                 // Assert
+        practiceFormPage.
                 checkTableRowByName("Student Name", FULL_USER_NAME).
                 checkTableRowByName("Student Email", EMAIL).
                 checkTableRowByName("Gender", GENDER).

@@ -2,12 +2,14 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import pages.PracticeFormPage;
+import pages.TextBoxPage;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
 
     PracticeFormPage practiceFormPage = new PracticeFormPage();
+    TextBoxPage textBoxPage = new TextBoxPage();
 
     @BeforeEach
     void setUp (){
