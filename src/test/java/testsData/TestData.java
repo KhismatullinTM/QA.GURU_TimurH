@@ -43,7 +43,7 @@ public class TestData {
     public String FILE_PATH = "Dubai.jpg";
 
 
-    public String INVALID_PHONE_NUMBER = fakerEng.phoneNumber().subscriberNumber(10);
+    public String INVALID_PHONE_NUMBER = fakerEng.phoneNumber().subscriberNumber(8);
     public String SECOND_FULL_USER_NAME = fakerEng.name().fullName();
     public String SECOND_EMAIL = fakerEng.internet().emailAddress();
     public String INVALID_SECOND_EMAIL = RandomUtils.getRandomEmailWithoutDomain();
