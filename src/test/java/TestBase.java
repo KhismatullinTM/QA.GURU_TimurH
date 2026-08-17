@@ -3,6 +3,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import pages.PracticeFormPage;
 import pages.TextBoxPage;
+import testsData.TestData;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
@@ -10,6 +11,7 @@ public class TestBase {
 
     PracticeFormPage practiceFormPage = new PracticeFormPage();
     TextBoxPage textBoxPage = new TextBoxPage();
+    static TestData testData = new TestData();
 
     @BeforeEach
     void setUp (){

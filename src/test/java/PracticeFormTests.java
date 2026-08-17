@@ -1,8 +1,6 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static testsData.TestData.*;
-
 public class PracticeFormTests extends TestBase {
 
     @Test
@@ -11,60 +9,60 @@ public class PracticeFormTests extends TestBase {
         //Act
         practiceFormPage.
                 openPracticeForm().
-                setFirstName(USER_FIRST_NAME).
-                setLastName(USER_LAST_NAME).
-                setUserEmail(EMAIL).
-                selectGender(GENDER).
-                setUserNumber(PHONE_NUMBER).
-                setDateOfBirth(DAY_OF_BIRTH, MONTH_OF_BIRTH, YEAR_OF_BIRTH).
-                setSubject(SUBJECTS).
-                setHobbies(HOBBY).
-                fileUploader(FILE_PATH).
-                setCurrentAddress(CURRENT_ADDRESS).
-                setStateAndCity(USER_STATE, USER_CITY).
+                setFirstName(testData.USER_FIRST_NAME).
+                setLastName(testData.USER_LAST_NAME).
+                setUserEmail(testData.EMAIL).
+                selectGender(testData.GENDER).
+                setUserNumber(testData.PHONE_NUMBER).
+                setDateOfBirth(testData.DAY_OF_BIRTH, testData.MONTH_OF_BIRTH, testData.YEAR_OF_BIRTH).
+                setSubject(testData.SUBJECTS).
+                setHobbies(testData.HOBBY).
+                fileUploader(testData.FILE_PATH).
+                setCurrentAddress(testData.CURRENT_ADDRESS).
+                setStateAndCity(testData.USER_STATE, testData.USER_CITY).
                 submitButtonClick().
                 checkModalTitleSubmittedForm();
                 // Asserts
         practiceFormPage.
-                checkTableRowByName("Student Name", FULL_USER_NAME).
-                checkTableRowByName("Student Email", EMAIL).
-                checkTableRowByName("Gender", GENDER).
-                checkTableRowByName("Mobile", PHONE_NUMBER).
-                checkTableRowByName("Date of Birth", DAY_OF_BIRTH + " " + MONTH_OF_BIRTH + "," + YEAR_OF_BIRTH).
-                checkTableRowByName("Subjects", SUBJECTS).
-                checkTableRowByName("Hobbies", HOBBY).
-                checkTableRowByName("Picture", FILE_PATH).
-                checkTableRowByName("Address", CURRENT_ADDRESS).
-                checkTableRowByName("State and City", USER_STATE + " " + USER_CITY);
+                checkTableRowByName("Student Name", testData.FULL_USER_NAME).
+                checkTableRowByName("Student Email", testData.EMAIL).
+                checkTableRowByName("Gender", testData.GENDER).
+                checkTableRowByName("Mobile", testData.PHONE_NUMBER).
+                checkTableRowByName("Date of Birth", testData.DAY_OF_BIRTH + " " + testData.MONTH_OF_BIRTH + "," + testData.YEAR_OF_BIRTH).
+                checkTableRowByName("Subjects", testData.SUBJECTS).
+                checkTableRowByName("Hobbies", testData.HOBBY).
+                checkTableRowByName("Picture", testData.FILE_PATH).
+                checkTableRowByName("Address", testData.CURRENT_ADDRESS).
+                checkTableRowByName("State and City", testData.USER_STATE + " " + testData.USER_CITY);
     }
 
     @Test
     void testWithRequiredFields (){
         practiceFormPage.
                 openPracticeForm().
-                setFirstName(USER_FIRST_NAME).
-                setLastName(USER_LAST_NAME).
-                setUserEmail(EMAIL).
-                selectGender(GENDER).
-                setUserNumber(PHONE_NUMBER).
+                setFirstName(testData.USER_FIRST_NAME).
+                setLastName(testData.USER_LAST_NAME).
+                setUserEmail(testData.EMAIL).
+                selectGender(testData.GENDER).
+                setUserNumber(testData.PHONE_NUMBER).
                 submitButtonClick().
                 checkModalTitleSubmittedForm();
 
         practiceFormPage.
-                checkTableRowByName("Student Name", FULL_USER_NAME).
-                checkTableRowByName("Student Email", EMAIL).
-                checkTableRowByName("Gender", GENDER).
-                checkTableRowByName("Mobile", PHONE_NUMBER);
+                checkTableRowByName("Student Name", testData.FULL_USER_NAME).
+                checkTableRowByName("Student Email", testData.EMAIL).
+                checkTableRowByName("Gender", testData.GENDER).
+                checkTableRowByName("Mobile", testData.PHONE_NUMBER);
     }
 
     @Test
     void testWithoutPhoneNumber () {
         practiceFormPage.
                 openPracticeForm().
-                setFirstName(USER_FIRST_NAME).
-                setLastName(USER_LAST_NAME).
-                setUserEmail(EMAIL).
-                selectGender(GENDER).
+                setFirstName(testData.USER_FIRST_NAME).
+                setLastName(testData.USER_LAST_NAME).
+                setUserEmail(testData.EMAIL).
+                selectGender(testData.GENDER).
                 submitButtonClick();
 
         practiceFormPage.
@@ -75,10 +73,10 @@ public class PracticeFormTests extends TestBase {
     void testWithoutGender () {
         practiceFormPage.
                 openPracticeForm().
-                setFirstName(USER_FIRST_NAME).
-                setLastName(USER_LAST_NAME).
-                setUserEmail(EMAIL).
-                setUserNumber(PHONE_NUMBER).
+                setFirstName(testData.USER_FIRST_NAME).
+                setLastName(testData.USER_LAST_NAME).
+                setUserEmail(testData.EMAIL).
+                setUserNumber(testData.PHONE_NUMBER).
                 submitButtonClick();
 
         practiceFormPage.
@@ -89,11 +87,11 @@ public class PracticeFormTests extends TestBase {
     void testWithInvalidPhone (){
         practiceFormPage.
                 openPracticeForm().
-                setFirstName(USER_FIRST_NAME).
-                setLastName(USER_LAST_NAME).
-                setUserEmail(EMAIL).
-                selectGender(GENDER).
-                setUserNumber(INVALID_PHONE_NUMBER).
+                setFirstName(testData.USER_FIRST_NAME).
+                setLastName(testData.USER_LAST_NAME).
+                setUserEmail(testData.EMAIL).
+                selectGender(testData.GENDER).
+                setUserNumber(testData.INVALID_PHONE_NUMBER).
                 submitButtonClick();
 
         practiceFormPage.
