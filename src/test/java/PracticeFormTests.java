@@ -37,6 +37,7 @@ public class PracticeFormTests extends TestBase {
     }
 
     @Test
+    @DisplayName("Регистрация студента только с обязательными параметрами")
     void testWithRequiredFields (){
         practiceFormPage.
                 openPracticeForm().
@@ -56,6 +57,7 @@ public class PracticeFormTests extends TestBase {
     }
 
     @Test
+    @DisplayName("Заполнение формы Регистрации студента без заполнения номера телефона")
     void testWithoutPhoneNumber () {
         practiceFormPage.
                 openPracticeForm().
@@ -70,6 +72,7 @@ public class PracticeFormTests extends TestBase {
     }
 
     @Test
+    @DisplayName("Заполнение формы Регистрации студента без указания гендера")
     void testWithoutGender () {
         practiceFormPage.
                 openPracticeForm().
@@ -84,6 +87,7 @@ public class PracticeFormTests extends TestBase {
     }
 
     @Test
+    @DisplayName("Заполнение формы Регистрации студента с некорректным номером телефона")
     void testWithInvalidPhone (){
         practiceFormPage.
                 openPracticeForm().
