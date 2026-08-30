@@ -1,13 +1,20 @@
+package tests;
+
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import pages.PracticeFormPage;
+import testsData.TestData;
 
 import static io.qameta.allure.Allure.step;
 
 @Story("Тесты формы регистрации \"Practice Form\"")
 @Feature("Тесты формы регистрации \"Practice Form\"")
 public class PracticeFormTests extends TestBase {
+
+    PracticeFormPage practiceFormPage = new PracticeFormPage();
+    TestData testData = new TestData();
 
     @Test
     @DisplayName("Успешное заполнение формы \"Регистрации студента\"")

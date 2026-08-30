@@ -1,14 +1,20 @@
+package tests;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import pages.TextBoxPage;
+import testsData.TestData;
 
 import java.util.stream.Stream;
 
 import static io.qameta.allure.Allure.step;
 
 public class TextBoxTests extends TestBase {
+    TextBoxPage textBoxPage = new TextBoxPage();
+    static TestData testData = new TestData();
 
     static Stream<Arguments> shouldSuccessfullySubmitTextBoxFormWithAnyUsers() {
         return Stream.of(

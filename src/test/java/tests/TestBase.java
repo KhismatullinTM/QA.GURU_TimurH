@@ -1,3 +1,5 @@
+package tests;
+
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import helpers.Attach;
@@ -17,15 +19,11 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
 
-    PracticeFormPage practiceFormPage = new PracticeFormPage();
-    TextBoxPage textBoxPage = new TextBoxPage();
-    static TestData testData = new TestData();
-
     @BeforeEach
     void setUp (){
-        //Configuration.browser = "chrome";
+        Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
-        //Configuration.timeout = 10000;
+        Configuration.timeout = 10000;
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
