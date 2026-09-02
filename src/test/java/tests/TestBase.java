@@ -19,14 +19,14 @@ public class TestBase {
 
     @BeforeAll
     static void setUp (){
-        Configuration.baseUrl = System.getProperty("url", "https://demoqa.com");
-        Configuration.browser = System.getProperty("browser", "chrome");
-        Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
-        Configuration.browserVersion = System.getProperty("browserVersion", "152");
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
+        Configuration.baseUrl = System.getProperty("URL", "https://demoqa.com");
+        Configuration.browser = System.getProperty("BROWSER", "chrome");
+        Configuration.browserSize = System.getProperty("BROWSER_SIZE");
+        Configuration.browserVersion = System.getProperty("BROWSER_VERSION", "152");
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("HEADLESS", "false"));
         Configuration.timeout = 10000;
 
-        String selenoidUrl = System.getProperty("selenoidUrl");
+        String selenoidUrl = System.getProperty("SELENOID_URL");
         if (selenoidUrl != null && !selenoidUrl.isEmpty()) {
             Configuration.remote = "https://user1:1234@" + selenoidUrl + "/wd/hub";
         }
