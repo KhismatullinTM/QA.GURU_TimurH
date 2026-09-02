@@ -22,7 +22,7 @@ public class TestBase {
         Configuration.baseUrl = System.getProperty("url", "https://demoqa.com");
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserSize = System.getProperty("browserSize", "1920x1080");
-        Configuration.browserVersion = System.getProperty("browserVersion", "152.0");
+        Configuration.browserVersion = System.getProperty("browserVersion", "152");
         Configuration.headless = Boolean.parseBoolean(System.getProperty("headless", "false"));
         Configuration.timeout = 10000;
 
