@@ -5,7 +5,6 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -17,12 +16,12 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
 
-    @BeforeAll
-    static void setUp (){
+    @BeforeEach
+    void setUp (){
         Configuration.baseUrl = System.getProperty("URL", "https://demoqa.com");
         Configuration.browser = System.getProperty("BROWSER", "chrome");
         Configuration.browserSize = System.getProperty("BROWSER_SIZE");
-        Configuration.browserVersion = System.getProperty("BROWSER_VERSION", "152");
+        //Configuration.browserVersion = System.getProperty("BROWSER_VERSION", "152");
         Configuration.headless = Boolean.parseBoolean(System.getProperty("HEADLESS", "false"));
         Configuration.timeout = 10000;
 
@@ -42,12 +41,6 @@ public class TestBase {
             Configuration.remote = "https://user1:1234@" + selenoidUrl + "/wd/hub";
         }
 
-        System.out.println("SELENOID_URL = " + selenoidUrl);
-        System.out.println("REMOTE = " + Configuration.remote);
-    }
-
-    @BeforeEach
-    void addListener() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 
