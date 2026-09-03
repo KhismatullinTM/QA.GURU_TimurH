@@ -70,7 +70,7 @@ public class PracticeFormPage {
     }
     @Step("Вводим хобби: {value}")
     public PracticeFormPage setHobbies (String value){
-        hobbiesWrapper.$(byText(value)).click();
+        hobbiesWrapper.scrollTo().$(byText(value)).click();
         return this;
     }
     @Step("Добавляем файл: {fileName}")
