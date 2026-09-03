@@ -26,24 +26,25 @@ public class TestBase {
         Configuration.headless = Boolean.parseBoolean(System.getProperty("HEADLESS", "false"));
         Configuration.timeout = 10000;
 
-        String selenoidUrl = System.getProperty("SELENOID_URL");
-        if (selenoidUrl != null && !selenoidUrl.isEmpty()) {
-            Configuration.remote = "https://user1:1234@" + selenoidUrl + "/wd/hub";
-        }
-
         DesiredCapabilities capabilities = new DesiredCapabilities();
-
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments(List.of("--disable-dev-shm-usage", "--no-sandbox"));
-
-        Configuration.browserCapabilities = capabilities;
         capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                 "enableVideo", true
         ));
-    }
 
+        Configuration.browserCapabilities = capabilities;
+
+        String selenoidUrl = System.getProperty("SELENOID_URL");
+        if (selenoidUrl != null && !selenoidUrl.isEmpty()) {
+            Configuration.remote = "https://user1:1234@" + selenoidUrl + "/wd/hub";
+        }
+
+        System.out.println("SELENOID_URL = " + selenoidUrl);
+        System.out.println("REMOTE = " + Configuration.remote);
+    }
 
     @BeforeEach
     void addListener() {
