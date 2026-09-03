@@ -5,6 +5,7 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -16,12 +17,12 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
 
-    @BeforeEach
-    void setUp (){
+    @BeforeAll
+    static void setUp() {
         Configuration.baseUrl = System.getProperty("URL", "https://demoqa.com");
         Configuration.browser = System.getProperty("BROWSER", "chrome");
         Configuration.browserSize = System.getProperty("BROWSER_SIZE");
-        //Configuration.browserVersion = System.getProperty("BROWSER_VERSION", "152");
+        Configuration.browserVersion = System.getProperty("BROWSER_VERSION", "152.0");
         Configuration.headless = Boolean.parseBoolean(System.getProperty("HEADLESS", "false"));
         Configuration.timeout = 10000;
 
@@ -37,10 +38,15 @@ public class TestBase {
         Configuration.browserCapabilities = capabilities;
 
         String selenoidUrl = System.getProperty("SELENOID_URL");
-        if (selenoidUrl != null && !selenoidUrl.isEmpty()) {
-            Configuration.remote = "https://user1:1234@" + selenoidUrl + "/wd/hub";
+        if (selenoidUrl == null || selenoidUrl.isEmpty() || "null".equals(selenoidUrl)) {
+            selenoidUrl = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         }
 
+        Configuration.remote = selenoidUrl;
+    }
+
+    @BeforeEach
+    void addListener() {
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
     }
 
