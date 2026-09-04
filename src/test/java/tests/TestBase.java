@@ -8,6 +8,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.List;
@@ -22,14 +24,15 @@ public class TestBase {
         Configuration.baseUrl = System.getProperty("URL", "https://demoqa.com");
         Configuration.browser = System.getProperty("BROWSER", "chrome");
         Configuration.browserSize = System.getProperty("BROWSER_SIZE");
-        Configuration.browserVersion = System.getProperty("BROWSER_VERSION", "152.0");
+        Configuration.browserVersion = System.getProperty("BROWSER_VERSION");
         Configuration.headless = Boolean.parseBoolean(System.getProperty("HEADLESS", "false"));
         Configuration.timeout = 10000;
 
         DesiredCapabilities capabilities = new DesiredCapabilities();
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments(List.of("--disable-dev-shm-usage", "--no-sandbox"));
-        capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.addArguments("--disable-dev-shm-usage", "--no-sandbox");
+            capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
+
         capabilities.setCapability("selenoid:options", Map.<String, Object>of(
                 "enableVNC", true,
                 "enableVideo", true
